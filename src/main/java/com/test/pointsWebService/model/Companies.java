@@ -8,6 +8,9 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
 
+//Object model for companies
+//ex: { "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" }
+
 public class Companies {
 	
 	String payer;

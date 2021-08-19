@@ -21,6 +21,7 @@ import com.test.pointsWebService.model.*;
 
 @RequestMapping("points/api")
 @RestController
+//Class used to define and handle the api points 
 public class PointsController {
 
 	private final PointsService pointsService;
@@ -30,21 +31,29 @@ public class PointsController {
 		this.pointsService = pointsService;
 	}
 	
+	//POST request to add transactions
+	//localhost:8080/points/api
 	@PostMapping
 	public String addTransaction(@RequestBody Companies company) {
 		return pointsService.pointsAdd(company);
 	}
 	
+	//GET request to get all transactions in a list
+	//localhost:8080/points/api
 	@GetMapping
 	public List<Companies> getCompanies() {
 		return pointsService.getCompanies();
 	}
 	
+	//POST request to spend points
+	//localhost:8080/points/api/spend
 	@PostMapping(path = "spend")
 	public List<Expenditures> getExpenditures(@RequestBody PointsToSpend p) {
 		return pointsService.getExpenditures(p);
 	}
 	
+	//GET request to get balance of all companies
+	//localhost:8080/points/api/balance
 	@GetMapping(path = "balance")
 	public HashMap<String, Integer> getBalance(){
 		return pointsService.getBalances();

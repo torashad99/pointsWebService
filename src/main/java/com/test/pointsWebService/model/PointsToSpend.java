@@ -1,5 +1,7 @@
 package com.test.pointsWebService.model;
 
+//Object model to call spend points
+//ex : { "points": 5000 }
 public class PointsToSpend {
 	
 	private Integer points;

@@ -1,5 +1,7 @@
 package com.test.pointsWebService.model;
 
+//Object model for Expenditures (response from spend call)
+// ex: { "payer": "DANNON", "points": -100 }
 public class Expenditures {
 
 	String payer;

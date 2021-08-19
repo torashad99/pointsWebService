@@ -11,6 +11,7 @@ import com.test.pointsWebService.dao.PointsDao;
 import com.test.pointsWebService.model.*;
 
 @Service
+//Class used to handle input parameters, checking if inputs are valid, giving an error if it's not valid, or giving out a result if it's valid
 public class PointsService {
 
 	private final PointsDao pointsDao;
@@ -20,22 +21,22 @@ public class PointsService {
 		this.pointsDao = pointsDao;
 	}
 	
+	//Method for add transaction
 	public String pointsAdd(Companies company) {
 		
 		if(company.getPoints() != 0)
 			return pointsDao.pointsAdd(company);
 		
-		//else if(company.getPoints() < 0)
-		//	return pointsDao.pointsSub(company);
-		
 		else
 			return "Cannot enter 0. Please enter a positive or negative value";
 	}
 	
+	//Method to give out all transactions, sorted by timestamp in ascending order
 	public List<Companies> getCompanies() {
 		return pointsDao.getCompanies();
 	}
 	
+	//Method to spend points, gives out expenditures, returns an empty list if points cannot be spent
 	public List<Expenditures> getExpenditures(PointsToSpend p) {
 		
 		Integer points = p.getPoints();
@@ -47,6 +48,7 @@ public class PointsService {
 			return null;
 	}
 	
+	//Method to get balances of each company from transactions stored
 	public HashMap<String, Integer> getBalances() {
 		return pointsDao.getBalances();
 	}

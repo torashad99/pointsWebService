@@ -15,11 +15,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 @Repository("repo")
+//Data access service class which handles the logic and stores into memory
 public class PointsDataAccessService implements PointsDao{
-
+	
+	//List used to store all transactions
 	private static List<Companies> theList = new ArrayList<>();
 	
 	@Override
+	//Method to add transactions
 	public String pointsAdd(Companies company) {
 	
 		if(theList.isEmpty()) {
@@ -33,7 +36,6 @@ public class PointsDataAccessService implements PointsDao{
 		
 			theList.add(company);
 			
-			
 			theList.sort(
 			        Comparator
 	                .comparing( ( Companies c ) -> c.getTimestamp().toLocalDate() )
@@ -44,7 +46,6 @@ public class PointsDataAccessService implements PointsDao{
 
 			);
 			
-			
 			return "Transaction is added and sorted by time in ascending order";
 		
 		}
@@ -52,8 +53,11 @@ public class PointsDataAccessService implements PointsDao{
 	}
 
 	@Override
+	//Method to get all transactions in a list
 	public List<Companies> getCompanies() {
+		
 		return theList;
+		
 	}
 
 	@Override
@@ -61,8 +65,6 @@ public class PointsDataAccessService implements PointsDao{
 		
 		Integer pointstoSub = (~(company.getPoints() - 1));
 		Integer check = pointstoSub;
-		//List<Companies> copyList = theList;
-		//System.out.println(copyList);
 		List<Companies> toRemove = new ArrayList<>();
 		int flag = 0;
 		
@@ -75,8 +77,6 @@ public class PointsDataAccessService implements PointsDao{
 				if(temp >= 0) {
 					
 					pointstoSub = pointstoSub - c.getPoints();
-					//theList.remove(c);
-					//toRemove.add(c);
 					c.setPoints(0);
 					
 				}
@@ -85,8 +85,6 @@ public class PointsDataAccessService implements PointsDao{
 					
 					Integer toPut = c.getPoints() - pointstoSub;
 					c.setPoints(toPut);
-					//flag = 1;
-					//return "Points subtracted";
 					pointstoSub = 0;
 					
 				}
@@ -105,16 +103,10 @@ public class PointsDataAccessService implements PointsDao{
 	}
 
 	@Override
+	//Method to spend points and get the expenditures by company
 	public List<Expenditures> getExpenditures(Integer points) {
-		
-		//Integer check = points;
-		//List<Companies> copyList = theList;
-		//System.out.println(copyList);
-		//List<Expenditures> expList = new ArrayList<>();
-		//int flag = 0;
+	
 		HashMap<String, Expenditures> toAdd = new HashMap<>();
-		//List<Companies> toRemove = new ArrayList<>();
-		
 		
 		for (Companies c : theList) {
 				
@@ -180,13 +172,12 @@ public class PointsDataAccessService implements PointsDao{
 			
 		}
 		
-		//theList.removeAll(toRemove);
-		
 		return new ArrayList<Expenditures>(toAdd.values()); 
 		
 	}
-
+	
 	@Override
+	//Method to get balances by company
 	public HashMap<String, Integer> getBalances() {
 		
 		HashMap<String, Integer> bal = new HashMap<>();
