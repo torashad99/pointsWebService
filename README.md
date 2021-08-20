@@ -1,6 +1,6 @@
 # pointsWebService
 
-Web service to manage points for a rewards company/
+Web service to manage points for a rewards company
 
 ## Instructions
 
@@ -30,8 +30,36 @@ Request Body Example : ```
                 "points" : 2000,
                 "Timestamp" : "2020-12-02T17:30:00Z"
               }
-          ```
+        ```
+
+Response Body Example : ```Transaction is Added``` / ```Transaction is added, sorted by timestamps in ascending order``` / ```Cannot enter 0. Please enter a positive or negative value```
 
 ### Spend points 
 
 #### Request : `POST localhost:8080/points/api/spend`
+
+This request will spend points based on the oldest timestamp first until points are over. If points cannot be spent, it returns an empty list
+
+Request Body Example : ```{ "points": 5000 }```
+
+Response Body Example : ```[ {"payer" : "CompanyA", "points" : -2500} , {"payer" : "CompanyB", "points" : -2500} ]``` / ``` [] ```
+
+### Get points balance
+
+#### Request : `GET localhost:8080/points/api/balance`
+
+This request will get point balances by company 
+
+Request Body Example : ```None```
+
+Response Body Example : ``` { "CompanyA": 500, "CompanyB": 300, "CompanyC": 200 } ```
+
+### Get all transactions
+
+#### Request : `GET localhost:8080/points/api`
+
+This request will get all transactions added previously, sorted by timestamp in ascending order. Returns an empty list if no transactions are added
+
+Request Body Example : ```None```
+
+Response Body Example : ```[ { "payer": "CompanyA", "points": 250, "timestamp": "2020-10-31T18:00:00Z" }, { "payer": "CompanyB", "points": 700, "timestamp": "2020-11-19T14:00:00Z" } ]``` / ``` [] ```
